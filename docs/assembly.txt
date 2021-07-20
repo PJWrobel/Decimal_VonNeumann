@@ -5,7 +5,6 @@ invert
 move
 goto
 if=0
-if>0
 
 rules:
 
@@ -21,4 +20,13 @@ r2-r4 are general purpose
 library is ordered 1 - 1000
 
 
+isNegative(a)
 
+0 a
+1 1
+2 500
+3 sub
+4 
+5 if a
+6 move 
+7 
