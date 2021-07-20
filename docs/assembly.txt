@@ -1,0 +1,24 @@
+instruction set:
+
+add
+invert
+move
+goto
+if=0
+if>0
+
+rules:
+
+cards have any number from 0 to 999
+you can overwrite the card with a new number
+you have a calculator. 
+
+setup: 
+Cards
+5 registers
+r1 is the program counter
+r2-r4 are general purpose
+library is ordered 1 - 1000
+
+
+

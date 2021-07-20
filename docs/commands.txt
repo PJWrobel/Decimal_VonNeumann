@@ -1,0 +1,20 @@
+--version
+init : initialize repo
+config --global user.name "Your Name"
+"      "        user.email "your@email.com" : used to keep track who makes changes
+status : status of repo
+add file.whatever : adds file/s to staging area
+commit -m "commit message" : -m adds message to the commit
+log : gives history of commits
+add . : adds all modified and new files to staging area (anything listed under status)
+checkout 58f73e54100... : reverts state to a previous commit. Copy/paste hash.
+branch : list branches
+branch <branchName> : create new branch
+merge <branchName> merge current branch with branchName.
+
+remote -v : list remotes
+remote add <remoteName> <Github Address> : create new remote with name remoteName (default should be origin) from github repo address
+push -u <remoteName> <branch> : push <branch> to the github repo designated by <remoteName>
+pull origin master
+checkout -b <newBranchName>
+
