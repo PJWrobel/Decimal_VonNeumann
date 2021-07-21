@@ -1,32 +1,76 @@
 instruction set:
 
-add
-invert
-move
-goto
-if=0
+001 add [r1,r2]
+002 invert [r1]
+003 copy (p,p)
+004 goto (p)
+005 if> [r1,r2](p)
+006 if= [r1,r2](p)
 
 rules:
 
 cards have any number from 0 to 999
 you can overwrite the card with a new number
-you have a calculator. 
 
 setup: 
 Cards
 5 registers
-r1 is the program counter
-r2-r4 are general purpose
-library is ordered 1 - 1000
+r0 is the program counter (000)
+r1/r2 are a and b for ALU (001/002)
+r3 is the ALU output      (003)
+r4-r7 are general purpose (004-007)
+library is ordered 100 - 999
 
 
 isNegative(a)
 
-0 a
-1 1
-2 500
-3 sub
-4 
-5 if a
-6 move 
-7 
+100: 000    a
+101: 000    return
+102: 499    MAX_INT
+103: 001    true
+104: 003    copy
+105: 100    *a
+106: 001    *r1
+107: 003    copy
+108: 102    *MAX_INT
+108: 002    *r2
+109: 005    if>
+110: 024    *end
+111: 003    copy
+112: 013    *true
+113: 011    *return
+114: 000    end
+
+abs(a)
+
+a
+isNeg(a)
+if isNeg == 1
+return ~a + 1
+else
+return a
+
+sub(x,y)
+
+100: x
+101: y
+102: return
+103: 1
+104: copy
+105: *y
+106: *a
+107: invert
+108: copy
+109: *out
+110: *a
+111: copy
+112: *x
+113: *b
+114: add
+115: copy
+116: *out
+117: copy
+118: *out
+119: *return
+120: end
+

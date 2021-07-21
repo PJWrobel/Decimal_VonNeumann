@@ -1,0 +1,13 @@
+The debate between "architecture first" learning and "coding first" currently leans towards the code-first method. The best introduction to
+computer science I have found is Harvard's CS50. The balance between CS and general purpose programming is done very well, but falls short in
+others.
+
+Philosophy:
+
+Highest level abstraction
+NO unknowns. public static void main(String[] args){} is possibly the worst thing you can type on a screen in the first video.
+CS topics as a focus: binary arithmetic, pointers, memory, arrays, strings, files, etc.
+Accessibility: Anyone with a laptop or phone can use a VM to follow along with the course. No development environment setup necessary.
+Graphical interractive computer architecture updates as students progress through the course. (decimal to binary)
+"simple" OS, terminal, text editor, C-like syntax compiled language.
+

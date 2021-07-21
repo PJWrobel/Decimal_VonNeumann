@@ -1,3 +1,7 @@
 Introduction:
 
-Cards: has 3 digits 
+A digit is any number from 0 - 9
+Cards have 3 digits.
+There is a library of cards numbered from 0-999.
+A red card stays on the left. This is our counter.
+
