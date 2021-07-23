@@ -18,7 +18,7 @@ void init(struct machine *vm)
 
 void loadProgram(struct machine *vm, card *program, size_t pgrmSize)
 {   for(int i=0; i<pgrmSize; i++){ //900 max size of program
-        vm->ram[i + 10] = program[i];
+        vm->ram[i + 100] = program[i];
     }
 }
 
@@ -72,18 +72,28 @@ int tick(struct machine *vm)
 }
 
 void printRam(struct machine vm)
-{   printf("[ %s : %s : %s : %s ] ", cardToStr(vm.ram[0]), cardToStr(vm.ram[1]), cardToStr(vm.ram[2]), cardToStr(vm.ram[3]));
-    for(int i=100; i<120; i++)
-    {   printf(" %s |", cardToStr(vm.ram[i]));
+{   printf("[ %s : %s : %s : %s ]\n", cardToStr(vm.ram[0]), cardToStr(vm.ram[1]), cardToStr(vm.ram[2]), cardToStr(vm.ram[3]));
+    for(int i=100; i<125; i++)
+    {   printf("%s|", cardToStr(vm.ram[i]));
     }
+    puts("");
 }
 
 int main()
 {
-    card program[] = {0,0,499,1,3,100,1,3,102,2,5,114,3,103,101,0};
+    card program[] =  {32,17,0,1,3,101,1,3,100,2,2,3,3,1,1,3,3,1,3,103,2,1,3,3,102};
+                //{a,b,ret,1,copy,*b,*r1,copy,*a,*r2,inv,copy,*out,*r1,add,copy,*out,*a,copy,*1,*b,copy,*out,*ret};
+                //(104){500,0,499,1,3,102,1,3,100,2,5,114,3,103,101,0};
     struct machine vm;
-    loadProgram(&vm, program, 16);
+    init(&vm);
+    loadProgram(&vm, program, 25);
     vm.ram[0] = 104;
+
+    do{
+        printRam(vm);
+        getchar();
+    }while(tick(&vm));
+
     printRam(vm);
 
     return 0;
