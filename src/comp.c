@@ -8,6 +8,7 @@
 
 struct machine
 {   card ram[1000];
+    char *label[1000];
 };
 
 void init(struct machine *vm)
@@ -18,7 +19,7 @@ void init(struct machine *vm)
 
 void loadProgram(struct machine *vm, card *program, size_t pgrmSize)
 {   for(int i=0; i<pgrmSize; i++){ //900 max size of program
-        vm->ram[i + 100] = program[i];
+        vm->ram[i] = program[i];
     }
 }
 

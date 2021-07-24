@@ -11,6 +11,7 @@
 
 struct machine{
     card ram[1000];
+    char *label[1000];
 };
 
 void init(struct machine *vm);
