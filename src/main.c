@@ -28,8 +28,6 @@ point get_midpoint(point p1, point p2, double i);
 //-------------------------
 
 
-
-
 int main(void)
 {
     //card program[] =  {4,0,0,0,32,17,0,1,3,5,1,3,4,2,2,3,3,1,1,3,3,1,3,7,2,1,3,3,6};
@@ -61,8 +59,8 @@ int main(void)
     return 0;
 }
 
-void drawCard(card c, int x, int y, Color color, _Bool big, card index, char *label){
-
+void drawCard(card c, int x, int y, Color color, _Bool big, card index, char *label)
+{
     char *cardstr = cardToStr(c, true);
     int rectLineWidth = 3;
     int digitOffset = 16;
@@ -71,7 +69,8 @@ void drawCard(card c, int x, int y, Color color, _Bool big, card index, char *la
     int rectHeight = 18;
     int arugh = 2;
 
-    if(big){
+    if(big)
+    {
         rectLineWidth=4;
         digitOffset = 31;
         fontSize = 40;
@@ -79,11 +78,12 @@ void drawCard(card c, int x, int y, Color color, _Bool big, card index, char *la
         rectHeight = 36;
         arugh = 4;
         
-    } else {
     }
 
-    for(int digit=0; digit<3; digit++){
-        for(int i=1; i<rectLineWidth; i++){
+    for(int digit=0; digit<3; digit++)
+    {
+        for(int i=1; i<rectLineWidth; i++)
+        {
             DrawRectangleLines((digit * digitOffset) + x - i, y - i, rectWidth + i*2, rectHeight + i*2, color);
         }
         DrawText(&cardstr[digit * 2], digit*digitOffset+x+arugh, y, fontSize, OFFWHITE);
@@ -109,8 +109,10 @@ void drawMachine(struct machine vm, int ramSize)
     drawCard(vm.ram[2], 970,50,(Color){51,95,255,255}, false, 2, vm.label[2]);
     drawCard(vm.ram[3], 1030,50,(Color){51,95,255,255}, false, 3, vm.label[3]);
    
-    for(int row=0; row<13; row++){
-        for(int col=0; col<8 && i<ramSize; col++, i++){
+    for(int row=0; row<13; row++)
+    {
+        for(int col=0; col<8 && i<ramSize; col++, i++)
+        {
             drawCard(vm.ram[i], 850 + col*60, 100 + row*50, (Color){50,120,0,255}, false, i, vm.label[i]);
         }
     }
@@ -119,6 +121,7 @@ void drawMachine(struct machine vm, int ramSize)
     point p2[4] = {{196,345},{196,400},{361,520},{361,580}};
     point p3[4] = {{545,345},{545,400},{380,520},{380,580}};
     point p4[4] = {{546,345},{546,400},{381,520},{381,580}};
+
     struct beziCurve_4 bc1 = {p1};
     struct beziCurve_4 bc2 = {p2};
     struct beziCurve_4 bc3 = {p3};
@@ -144,7 +147,9 @@ void DrawCurve4(struct beziCurve_4 c)
         intrm[4] = get_midpoint(intrm[1],intrm[2],i);
         final = get_midpoint(intrm[3],intrm[4],i);
         if(temp.x == 0)
+        {
             temp = final;
+        }
         DrawLine(final.x, final.y, temp.x, temp.y, RED);
         temp = final;
     }

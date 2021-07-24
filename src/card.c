@@ -8,7 +8,8 @@
 #define MAX_CARD 999
 
 card overflow(card c)
-{   if( c > MAX_CARD)
+{   
+    if( c > MAX_CARD)
         return c - 1000;
     return c;
 }
@@ -28,7 +29,8 @@ card subCards(card x, card y)   //subtract cards: a - b := a + ~b + 1
 char* cardToStr(card c, _Bool separate) //{'9','\0','9','\0','9','\0'}
 {   
     char *str = malloc(6);
-    if(separate){
+    if(separate)
+    {
         str[1] = '\0';
         str[3] = '\0';
         str[5] = '\0';
@@ -37,7 +39,8 @@ char* cardToStr(card c, _Bool separate) //{'9','\0','9','\0','9','\0'}
         str[2] = c % 10 + ASCII_OFFSET;
         c /= 10; 
         str[0] = c % 10 + ASCII_OFFSET;
-    } else {
+    } else 
+    {
         str[3] = '\0';
         str[2] = c % 10 + ASCII_OFFSET;
         c /= 10;

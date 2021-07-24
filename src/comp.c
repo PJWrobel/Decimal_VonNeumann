@@ -12,13 +12,17 @@ struct machine
 };
 
 void init(struct machine *vm)
-{   for(int i=0; i<1000; i++)
-    {   vm->ram[i] = 0;
+{   
+    for(int i=0; i<1000; i++)
+    {   
+        vm->ram[i] = 0;
     }
 }
 
 void loadProgram(struct machine *vm, card *program, size_t pgrmSize)
-{   for(int i=0; i<pgrmSize; i++){ //900 max size of program
+{   
+    for(int i=0; i<pgrmSize; i++)//900 max size of program
+    {
         vm->ram[i] = program[i];
     }
 }
@@ -42,8 +46,8 @@ int tick(struct machine *vm)
     card *out = &ram[ OUT_REG ];
     card cmd  = ram[ *pc ];
     
-    if(cmd > 997){
-        return -1;
+    if(cmd > 997)
+    {   return -1;
     }
     
     switch(cmd)
