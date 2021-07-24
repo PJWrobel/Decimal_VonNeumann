@@ -22,7 +22,15 @@ void loadProgram(struct machine *vm, card *program, size_t pgrmSize)
     }
 }
 
-enum command { END, ADD, INV, COPY, GOTO, IFGRT, IFEQ };
+enum command 
+{   END = 0,
+    ADD,
+    INV,
+    COPY,
+    GOTO,
+    IFGRT,
+    IFEQ
+};
 
 int tick(struct machine *vm)
 {
@@ -71,6 +79,7 @@ int tick(struct machine *vm)
     return 1;
 }
 
+/*
 void printRam(struct machine vm)
 {   printf("[ %s : %s : %s : %s ]\n", cardToStr(vm.ram[0]), cardToStr(vm.ram[1]), cardToStr(vm.ram[2]), cardToStr(vm.ram[3]));
     for(int i=100; i<125; i++)
@@ -98,3 +107,4 @@ int main()
 
     return 0;
 }
+*/

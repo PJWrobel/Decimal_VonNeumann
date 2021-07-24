@@ -24,7 +24,7 @@
 .PHONY: all clean
 
 # Define required raylib variables
-PROJECT_NAME       ?= graphical
+PROJECT_NAME       ?= von_build
 RAYLIB_VERSION     ?= 2.5.0
 RAYLIB_API_VERSION ?= 2
 RAYLIB_PATH        ?= ~/raylib
@@ -340,7 +340,7 @@ ifeq ($(PLATFORM),PLATFORM_WEB)
 endif
 
 # Define all source files required
-PROJECT_SOURCE_FILES ?= graphical.c
+PROJECT_SOURCE_FILES ?= main.c card.c comp.c
 
 # Define all object files from source files
 OBJS = $(patsubst %.c, %.o, $(PROJECT_SOURCE_FILES))

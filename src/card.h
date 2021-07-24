@@ -13,7 +13,7 @@
 card overflow(card c);
 card addCards(card x, card y);
 card inverse(card x);
-card subCards(card x, card y);   //subtract cards: a - b := a + ~b + 1 
+card subCards(card x, card y);
 char* cardToStr(card c);
 void printCard(card c);
 
