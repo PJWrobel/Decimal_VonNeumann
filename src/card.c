@@ -26,10 +26,10 @@ card subCards(card x, card y)   //subtract cards: a - b := a + ~b + 1
 {   return overflow( x+inverse(y)+1 );
 }
 
-char* cardToStr(card c, _Bool separate) //{'9','\0','9','\0','9','\0'}
+char* cardToStr(card c, _Bool separate) 
 {   
     char *str = malloc(6);
-    if(separate)
+    if(separate)//{'9','\0','9','\0','9','\0'}
     {
         str[1] = '\0';
         str[3] = '\0';

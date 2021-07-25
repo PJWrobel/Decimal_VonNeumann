@@ -10,7 +10,13 @@
 #define SH 768
 #define OFFWHITE (Color){222,200,140,255}
 
-
+#define END 0
+#define ADD 1
+#define INV 2
+#define COPY 3
+#define GOTO 4
+#define IFGRT 5
+#define IFEQ 6
 
 void drawCard(card c, int x, int y, Color color, _Bool big, card index, char *label);
 void drawMachine(struct machine vm, int ramSize);
@@ -35,8 +41,8 @@ int main(void)
     
     struct machine vm = {
                 {8,0,0,0,32,17,0,1,3,5,1,3,4,2,2,3,3,1,1,3,3,1,3,7,2,1,3,3,6},
-                {"counter","a","b","out","x","y","ret","1","copy","*b","*r1","copy","*a","*r2","inv","copy","*out","*r1","add","copy","*out","*a","copy","*1","*b","copy","*out","*ret"} };
-    //init(&vm);
+                {"counter","a","b","out","x","y","ret","1","COPY","*b","*r1","COPY","*a","*r2","INV","COPY","*out","*r1","ADD","COPY","*out","*a","COPY","*1","*b","ADD","COPY","*out","*ret"} };
+//init(&vm);
     //loadProgram(&vm, program, 29);
 
     InitWindow(SW, SH, "TEMPLATE");
@@ -45,11 +51,27 @@ int main(void)
 
     while (!WindowShouldClose())
     {
-
     	if (IsKeyPressed(KEY_ENTER))
         {
 		    tick(&vm);    
         }
+        if (IsKeyPressed(KEY_RIGHT))
+        {
+            vm.ram[0]++;
+        }
+        if (IsKeyPressed(KEY_LEFT))
+        {
+            vm.ram[0]--;
+        }
+        if (IsKeyDown(KEY_DOWN))
+        {
+            vm.ram[vm.ram[0]]--; //underflow not detected
+        }
+        if (IsKeyDown(KEY_UP))
+        {
+            vm.ram[vm.ram[0]]++; //same with overflow
+        }
+
         BeginDrawing();
         drawMachine(vm,100);
         ClearBackground((Color){13,13,20,255});
@@ -116,6 +138,44 @@ void drawMachine(struct machine vm, int ramSize)
             drawCard(vm.ram[i], 850 + col*60, 100 + row*50, (Color){50,120,0,255}, false, i, vm.label[i]);
         }
     }
+
+    int instructionSize = 1;
+    card index = vm.ram[0];
+    switch(vm.ram[index])
+    {
+        case END:
+        case ADD:
+        case INV:
+            instructionSize = 1;
+            break;
+        case GOTO:
+        case IFGRT:
+        case IFEQ:
+            instructionSize = 2;
+            break;
+        case COPY:
+            instructionSize = 3;
+            break;
+    }
+    //------------instruction boxes-------------
+    void drawRect(card index)
+    {   
+        int row = (index - 4) / 8;
+        int col = (index - 4) % 8;
+        
+        if(index < 4)
+        {   col = index%8;
+            DrawRectangleLines(843 + col*60,86-50,60,48,(Color){255,233,50,255});
+            DrawRectangleLines(842 + col*60,85-50,62,50,(Color){255,233,50,255});
+        } else {
+            DrawRectangleLines(843 + col*60,86+row*50,60,48,(Color){255,233,50,255});
+            DrawRectangleLines(842 + col*60,85+row*50,62,50,(Color){255,233,50,255});
+        }
+    }
+    for(i=0; i<instructionSize; i++)
+    {   drawRect(index + i);
+    }
+
     //-----------bezi curve---------------
     point p1[4] = {{195,345},{195,400},{360,520},{360,580}};
     point p2[4] = {{196,345},{196,400},{361,520},{361,580}};

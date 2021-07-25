@@ -6,6 +6,14 @@
 #define B_REG 2
 #define OUT_REG 3
 
+#define END 0
+#define ADD 1
+#define INV 2
+#define COPY 3
+#define GOTO 4
+#define IFGRT 5
+#define IFEQ 6
+
 struct machine
 {   card ram[1000];
     char *label[1000];
@@ -26,16 +34,6 @@ void loadProgram(struct machine *vm, card *program, size_t pgrmSize)
         vm->ram[i] = program[i];
     }
 }
-
-enum command 
-{   END = 0,
-    ADD,
-    INV,
-    COPY,
-    GOTO,
-    IFGRT,
-    IFEQ
-};
 
 int tick(struct machine *vm)
 {

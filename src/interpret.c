@@ -5,7 +5,7 @@
 
 const char *KEYWORDS[7] = {"END","ADD","INV","COPY","GOTO","IFGRT","IFEQ"};
 
-int interpretProgram(char *filename)
+struct machine interpretProgram(char *filename)
 {
     struct machine vm;
 
@@ -16,33 +16,47 @@ int interpretProgram(char *filename)
     File *fp = fopen("programs/main.txt","r");
     int programSize;
     int labelsSize = 0;
-    for(programSize = 0; *fp != EOF; fp++, programSize++)
+
+    for(programSize = 0; *fp != EOF; fp++, programSize++) //copy from file to ram labels
     {
         strcpy(vm.label[i],*fp);
     }
     fclose(fp);
 
-    for(int i=0; i < programSize; i++)
+    for(int i=0; i < programSize; i++) //iterate through program
     {   
         char *line = vm.label[i];
-        if(*line == '*')
+        
+        if(*line == '*') //if pointer
         {
             line++;
             for(int label=0; label < labelsSize; label++)
             {
-                if(strcmp(line, labels[label]) == 0)
+                if(strcmp(line, labels[label]) == 0) //if label found
                 {
                     vm.ram[i] = labelsIndex[label];
                 }
             }
         }
-        for(int key = 0; key < 7; key++)
+        else if(*line == '#') //constant num syntax
+        {   
+            vm.ram[i] = (card)atoi(*(line+1));
+            labels[labelsSize++] = line; //strcpy?
+        }
+        else if(*line & 32) //uppercase?
         {
-            if(strcmp(KEYWORDS[key], line) == 0)
+            for(int key = 0; key < 7; key++)
             {
-                vm.ram[i] = key;
+                if(strcmp(KEYWORDS[key], line) == 0)
+                {
+                    vm.ram[i] = key;
+                }
             }
+        } else
+        {
+            labels[labelsSize++] = line;
         }
     }
-    return 0;
+    return vm;
 }
+
