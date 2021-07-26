@@ -1,7 +1,7 @@
 #Decimal_VonNeumann
 Graphical learning tool using a decimal version of the Von Neumann architecture
 
-This tool is used in conjunction with the video series "Computer Science Made Easy" https://www.youtube.com/playlist?=a534gTa (not the current name).
+This tool is used in conjunction with the video series TBD.
 
 ![preview](https://i.imgur.com/Udb8WBx.png)
 
