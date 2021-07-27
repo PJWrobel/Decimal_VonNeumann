@@ -36,14 +36,10 @@ point get_midpoint(point p1, point p2, double i);
 
 int main(void)
 {
-    //card program[] =  {4,0,0,0,32,17,0,1,3,5,1,3,4,2,2,3,3,1,1,3,3,1,3,7,2,1,3,3,6};
-            //(104){500,0,499,1,3,102,1,3,100,2,5,114,3,103,101,0};
-    
     struct machine vm = {
-                {8,0,0,0,32,17,0,1,3,5,1,3,4,2,2,3,3,1,1,3,3,1,3,7,2,1,3,3,6},
-                {"counter","a","b","out","x","y","ret","1","COPY","*b","*r1","COPY","*a","*r2","INV","COPY","*out","*r1","ADD","COPY","*out","*a","COPY","*1","*b","ADD","COPY","*out","*ret"} };
-//init(&vm);
-    //loadProgram(&vm, program, 29);
+                {12,0,0,0,236,787,174,941,0,0,1,0,3,5,1,3,7,2,1,3,3,9,3,3,1,5,30,3,10,11,3,4,1,3,6,2,1,3,3,1,3,11,2,1,3,3,8,4,0},
+                {"counter","a","b","out","x1","x2","y1","y2","return1","return2","#1","carry=0","COPY","*x2","*a","COPY","*y2","*b","ADD","COPY","*out","*return2"    ,"COPY","*out","*a","IFGRT","*label","COPY","*#1","*carry","COPY:label","*x1","*a","COPY","*y1","*b","ADD","COPY","*out","*a","COPY","*carry","*b"    ,"ADD","COPY","*out","*return1","GOTO","*counter"}
+    };
 
     InitWindow(SW, SH, "TEMPLATE");
     

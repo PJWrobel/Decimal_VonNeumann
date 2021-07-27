@@ -62,23 +62,24 @@ int tick(struct machine *vm)
             *pc += 2;
             break;
         case GOTO:
-            *pc = ram[ *pc+1 ];
+            *pc = ram[ *pc+1 ]-1;
             break;
         case IFGRT:
             if(*a > *b){
                 *pc = ram[ *pc+1 ];
                 return 1;
             }
+            vm->ram[CMD_REG]++;//*pc++
             break;
         case IFEQ:
             if(*a == *b){
                 *pc = ram[ *pc+1 ];
                 return 1;
             }
+            vm->ram[CMD_REG]++;//*pc++
             break;
     }
-    //*pc++;error?
-    vm->ram[CMD_REG]++;
+    vm->ram[CMD_REG]++;//*pc++
     return 1;
 }
 

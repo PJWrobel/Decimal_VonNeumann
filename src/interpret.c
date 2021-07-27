@@ -1,9 +1,20 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 #include "comp.h"
 
-const char *KEYWORDS[7] = {"END","ADD","INV","COPY","GOTO","IFGRT","IFEQ"};
+char *keywords[7] = {"END","ADD","INV","COPY","GOTO","IFGRT","IFEQ"};
+
+int strcmpAndLine(char *str1, char *str2)
+{
+    for(;*str1 && *str2; str1++, str2++)
+        if(*str1 != *str2)
+            return *str1 > *str2 ? 1 : -1;
+    if(*str2 == ':')
+        return 2;
+    else return 0;
+}
 
 struct machine interpretProgram(char *filename)
 {
@@ -13,13 +24,13 @@ struct machine interpretProgram(char *filename)
     char *labels[50]; //max 50 labels
     card labelsIndex[50];
     
-    File *fp = fopen("programs/main.txt","r");
+    FILE *fp = fopen("programs/main.txt","r");
     int programSize;
     int labelsSize = 0;
 
-    for(programSize = 0; *fp != EOF; fp++, programSize++) //copy from file to ram labels
+    for(programSize = 0; fgets(lineBuffer, 20, fp) != NULL; fp++, programSize++) //copy from file to ram labels
     {
-        strcpy(vm.label[i],*fp);
+        strcpy(vm.label[programSize], lineBuffer);
     }
     fclose(fp);
 
@@ -40,23 +51,28 @@ struct machine interpretProgram(char *filename)
         }
         else if(*line == '#') //constant num syntax
         {   
-            vm.ram[i] = (card)atoi(*(line+1));
+            vm.ram[i] = (card)atoi(line+1);
             labels[labelsSize++] = line; //strcpy?
         }
-        else if(*line & 32) //uppercase?
+        else if(*line > 64 && *line < 91) //uppercase
         {
             for(int key = 0; key < 7; key++)
             {
-                if(strcmp(KEYWORDS[key], line) == 0)
+                if(strcmpAndLine(keywords[key], line) == 0)
                 {
                     vm.ram[i] = key;
                 }
             }
-        } else
+
+        } else if (*line > 96 && *line < 123)
         {
             labels[labelsSize++] = line;
         }
     }
     return vm;
 }
-
+int main()
+{
+    struct machine vm = interpretProgram("programs/add6dig.pgm");
+    return 0;
+}
