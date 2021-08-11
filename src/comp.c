@@ -56,21 +56,21 @@ int tick(struct machine *vm)
             break;
         case COPY:
             ram[cmd[2]] = ram[cmd[1]];
-            vm->pc += 2;
+            vm->pc += 3;
             break;
         case GOTO:
-            vm->pc = ram[cmd[1]];
+            vm->pc = cmd[1];
             break;
         case IFGRT:
             if(ram[cmd[1]] > ram[cmd[2]] ){
-                vm->pc = ram[cmd[3]];
+                vm->pc = cmd[3];
                 return 1;
             }
             vm->pc += 4;
             break;
         case IFEQ:
             if(ram[cmd[1]] == ram[cmd[2]]){
-                vm->pc = ram[cmd[3]];
+                vm->pc = cmd[3];
                 return 1;
             }
             vm->pc += 4;

@@ -41,7 +41,7 @@ point get_midpoint(point p1, point p2, double i);
 
 int main(void)
 {
-    struct machine vm = {0, {0,1,2,3,4,5},{"make"}};
+    struct machine vm = {0, {4,9,999,999,0,0,1,0,1,3,3,5,6,2,8,37,1,3,5,7,5,7,5,28,1,4,6,4,3,7,5,1,8,6,8,4,12,0},{"GOTO","*COPY","x","y","r1","r2","#1","t","i","COPY","*y","*r2","IFEQ","*x","*i","*END","ADD","*y","*r2","*t","IFGRT","*t","*r2","*COPY","ADD","*r1","*1","*r1","COPY","*t","*r2","ADD","*i","*1","*i","GOTO","*IFEQ","END"}};
     
     InitWindow(SW, SH, "TEMPLATE");
     
@@ -49,10 +49,10 @@ int main(void)
 
     while (!WindowShouldClose())
     {
-    	if (IsKeyPressed(KEY_ENTER))
-        {
+    	//if (IsKeyPressed(KEY_ENTER))
+        //{
 		    tick(&vm);    
-        }
+        //}
         if (IsKeyPressed(KEY_RIGHT))
         {
             vm.pc++;
@@ -132,10 +132,10 @@ void drawMachine(struct machine vm, int ramSize)
     switch(vm.ram[index])
     {   
         case ADD:
-            drawCard(vm.ram[index+1], 300, 300, PASTEL_BLUE, true, 5000, " ");//a
-            drawCard(vm.ram[index+2], 300, 350, PASTEL_BLUE, true, 5000, " ");//b
+            drawCard(vm.ram[vm.ram[index+1]], 300, 300, PASTEL_BLUE, true, 5000, " ");//a
+            drawCard(vm.ram[vm.ram[index+2]], 300, 350, PASTEL_BLUE, true, 5000, " ");//b
             DrawRectangle(290,395,100,4,OFFWHITE);
-            drawCard(addCards(vm.ram[index+1], vm.ram[index+2]), 300, 410, PASTEL_BLUE, true, 5000, " ");//out
+            drawCard(addCards(vm.ram[vm.ram[index+1]], vm.ram[vm.ram[index+2]]), 300, 410, PASTEL_BLUE, true, 5000, " ");//out
     }
 
     switch(vm.ram[index])
