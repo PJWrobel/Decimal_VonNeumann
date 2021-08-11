@@ -29,6 +29,15 @@ card subCards(card x, card y)   //subtract cards: a - b := a + ~b + 1
 char* cardToStr(card c, _Bool separate) 
 {   
     char *str = malloc(6);
+    if(c > 3000)
+    {   str[0] = ' '; //has to be a better way, sscanf?
+        str[1] = '\0';
+        str[2] = ' ';
+        str[3] = '\0';
+        str[4] = ' ';
+        str[5] = '\0';
+        return str;
+    }
     if(separate)//{'9','\0','9','\0','9','\0'}
     {
         str[1] = '\0';

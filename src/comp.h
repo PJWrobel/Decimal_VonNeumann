@@ -10,6 +10,7 @@
 #define OUT_REG 3
 
 struct machine{
+    card pc;
     card ram[1000];
     char *label[1000];
 };

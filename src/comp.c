@@ -2,9 +2,6 @@
 #include"card.h"
 
 #define CMD_REG 0
-#define A_REG 1
-#define B_REG 2
-#define OUT_REG 3
 
 #define END 0
 #define ADD 1
@@ -15,12 +12,14 @@
 #define IFEQ 6
 
 struct machine
-{   card ram[1000];
+{   card pc;        //program counter
+    card ram[1000];
     char *label[1000];
 };
 
 void init(struct machine *vm)
 {   
+    vm->pc = 0; //program counter register
     for(int i=0; i<1000; i++)
     {   
         vm->ram[i] = 0;
@@ -37,49 +36,46 @@ void loadProgram(struct machine *vm, card *program, size_t pgrmSize)
 
 int tick(struct machine *vm)
 {
-    card *ram = vm->ram;
-    card *pc  = &ram[ CMD_REG ]; 
-    card *a   = &ram[ A_REG ];
-    card *b   = &ram[ B_REG ];
-    card *out = &ram[ OUT_REG ];
-    card cmd  = ram[ *pc ];
+    card *ram = vm->ram;        //immutable
+    card *cmd  = &ram[ vm->pc ]; 
     
-    if(cmd > 997)
+    if(*cmd > 997)
     {   return -1;
     }
     
-    switch(cmd)
+    switch(*cmd)
     {   case END:
             return 0;
         case ADD:
-            *out = addCards(*a,*b);
+            ram[cmd[3]] = addCards(ram[cmd[1]], ram[cmd[2]]); // | ADD | *a | *b | *out | ..
+            vm->pc += 4;
             break;
         case INV:
-            *out = inverse(*a);
+            ram[cmd[2]] = inverse(ram[cmd[1]]);
+            vm->pc += 3;
             break;
         case COPY:
-            ram[ ram[ *pc+2 ]] = ram[ ram[ *pc+1 ]];
-            *pc += 2;
+            ram[cmd[2]] = ram[cmd[1]];
+            vm->pc += 2;
             break;
         case GOTO:
-            *pc = ram[ *pc+1 ]-1;
+            vm->pc = ram[cmd[1]];
             break;
         case IFGRT:
-            if(*a > *b){
-                *pc = ram[ *pc+1 ];
+            if(ram[cmd[1]] > ram[cmd[2]] ){
+                vm->pc = ram[cmd[3]];
                 return 1;
             }
-            vm->ram[CMD_REG]++;//*pc++
+            vm->pc += 4;
             break;
         case IFEQ:
-            if(*a == *b){
-                *pc = ram[ *pc+1 ];
+            if(ram[cmd[1]] == ram[cmd[2]]){
+                vm->pc = ram[cmd[3]];
                 return 1;
             }
-            vm->ram[CMD_REG]++;//*pc++
+            vm->pc += 4;
             break;
     }
-    vm->ram[CMD_REG]++;//*pc++
     return 1;
 }
 
