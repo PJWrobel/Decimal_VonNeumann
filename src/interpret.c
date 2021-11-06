@@ -37,36 +37,37 @@ struct machine interpretProgram(char *filename)
     for(int i=0; i < programSize; i++) //iterate through program
     {   
         char *line = vm.label[i];
-        
-        if(*line == '*') //if pointer
-        {
-            line++;
-            for(int label=0; label < labelsSize; label++)
-            {
-                if(strcmp(line, labels[label]) == 0) //if label found
+        switch(*line)
+        { 
+            case '*': //if pointer
+                line++;
+                for(int label=0; label < labelsSize; label++)
                 {
-                    vm.ram[i] = labelsIndex[label];
+                    if(strcmp(line, labels[label]) == 0) //if label found
+                    {
+                        vm.ram[i] = labelsIndex[label];
+                    }
                 }
-            }
-        }
-        else if(*line == '#') //constant num syntax
-        {   
-            vm.ram[i] = (card)atoi(line+1);
-            labels[labelsSize++] = line; //strcpy?
-        }
-        else if(*line > 64 && *line < 91) //uppercase
-        {
-            for(int key = 0; key < 7; key++)
-            {
-                if(strcmpAndLine(keywords[key], line) == 0)
-                {
-                    vm.ram[i] = key;
-                }
-            }
+                break;
 
-        } else if (*line > 96 && *line < 123)
-        {
-            labels[labelsSize++] = line;
+            case '#': //constant num syntax
+            
+                vm.ram[i] = (card)atoi(line+1);
+                labels[labelsSize++] = line; //strcpy?
+                break;
+
+            case 'A' ... 'Z': //uppercase
+                for(int key = 0; key < 7; key++)
+                {
+                    if(strcmpAndLine(keywords[key], line) == 0)
+                    {
+                        vm.ram[i] = key;
+                    }
+                }
+                break;
+
+            case 'a' ... 'z'
+                labels[labelsSize++] = line;
         }
     }
     return vm;

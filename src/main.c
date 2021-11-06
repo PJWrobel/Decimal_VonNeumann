@@ -41,11 +41,11 @@ point get_midpoint(point p1, point p2, double i);
 
 int main(void)
 {
-    struct machine vm = {0, {4,9,999,999,0,0,1,0,1,3,3,5,6,2,8,37,1,3,5,7,5,7,5,28,1,4,6,4,3,7,5,1,8,6,8,4,12,0},{"GOTO","*COPY","x","y","r1","r2","#1","t","i","COPY","*y","*r2","IFEQ","*x","*i","*END","ADD","*y","*r2","*t","IFGRT","*t","*r2","*COPY","ADD","*r1","*1","*r1","COPY","*t","*r2","ADD","*i","*1","*i","GOTO","*IFEQ","END"}};
+    struct machine vm = {0, {4,9,33,241,0,0,1,0,1,3,3,5,6,2,8,37,1,3,5,7,5,7,5,28,1,4,6,4,3,7,5,1,8,6,8,4,12,0},{"GOTO","*COPY","x","y","r1","r2","#1","t","i","COPY","*y","*r2","IFEQ","*x","*i","*END","ADD","*y","*r2","*t","IFGRT","*t","*r2","*COPY","ADD","*r1","*1","*r1","COPY","*t","*r2","ADD","*i","*1","*i","GOTO","*IFEQ","END"}};
     
     InitWindow(SW, SH, "TEMPLATE");
     
-    SetTargetFPS(30);
+    SetTargetFPS(60);
 
     while (!WindowShouldClose())
     {
